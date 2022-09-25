@@ -1,10 +1,11 @@
 from random import random
+from typing import List
 
 mag_bias: float = 4e-7
 mag_noise: float = 1e-5
 
 
-def Model(B: list[float]):
+def Model(B: List[float]):
     '''
     Modelo do Magnetometro. Aplica um bias e ruido
     no sinal original

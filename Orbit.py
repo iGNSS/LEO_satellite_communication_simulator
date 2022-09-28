@@ -1,5 +1,5 @@
 import numpy as np
-from Earth import R, mu
+from EarthValues import R, mu
 from math import pi
 
 altitude: float = 600e3

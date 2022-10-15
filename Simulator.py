@@ -7,7 +7,9 @@ def s(progress):
     ''' Change this parameter to print the progress
     '''
     pass
-
+    # sample
+    # progess *= 100
+    # print(f"Progess: {progress: .2f}%")
 
 def Simulate(number_of_orbits, state, status=s, timestep=1):
     tfinal: float = period * number_of_orbits
@@ -15,7 +17,7 @@ def Simulate(number_of_orbits, state, status=s, timestep=1):
 
     view_state = []
     for i in range(len(time)):
-        status(i/len(time))
+        status(i/len(time))     # print the progess %
         state = RK4(Satellite.Model, state, time[i], timestep)
         view_state.append(state[:, 0])
     return view_state, time

@@ -7,8 +7,8 @@ import sys
 
 def Earth(ax, state):
     ax.plot3D(state[:, 0]*1e-3,
-              state[:, 1]*1e-3,
-              state[:, 2]*1e-3, 'red', label="Orbit")
+                state[:, 1]*1e-3,
+                state[:, 2]*1e-3, 'red', label="Orbit")
 
     u, v = np.mgrid[0:2*np.pi:10j, 0:np.pi:20j]
     x = R*1e-3*np.cos(u)*np.sin(v)

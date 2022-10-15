@@ -26,8 +26,7 @@ def attitudeModel(quaternion, w):
     assert(quaternion.shape == (4, 1))
     assert(w.shape == (3, 1))
     p, q, r = w
-    PQRMAT = np.array([[0, -p, -q, -r], [p, 0, r, -q],
-                        [q, -r, 0, p], [r, q, -p, 0]],  dtype=float)
+    PQRMAT = np.array([[0, -p, -q, -r], [p, 0, r, -q], [q, -r, 0, p], [r, q, -p, 0]],  dtype=float)
     quaternion_dot = 0.5*PQRMAT @ quaternion
     quaternion_dot = np.reshape(quaternion_dot, (4, 1))
     assert(quaternion_dot.shape == (4, 1))
@@ -49,8 +48,7 @@ def magneticModel(position, posAngle):
     longitude: float = psiE * (180/pi)
     rho_km: float = (rho) / 1000
     today = date.fromisoformat('2020-01-01')
-    BNED = MagneticFieldModel(
-        today, glat=latitude, glon=longitude, alt_km=rho_km, itype=2)
+    BNED = MagneticFieldModel(today, glat=latitude, glon=longitude, alt_km=rho_km, itype=2)
     BNED = np.array([BNED.north, BNED.east, BNED.down], dtype=float)
     
     assert(BNED.shape == (3, 1))
@@ -111,8 +109,7 @@ def Model(t: float, state: List[float]):
 
     velocity = state[3:6]
 
-    dstate = np.vstack(
-        [velocity, acceleration, quaternion_dot, angular_acceleration])
+    dstate = np.vstack([velocity, acceleration, quaternion_dot, angular_acceleration])
 
     assert(dstate.shape == (13, 1))
     return dstate

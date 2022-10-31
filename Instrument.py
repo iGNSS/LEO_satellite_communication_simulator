@@ -1,6 +1,7 @@
 import numpy as np
 
 # use for output 
+# may not use
 class Prober:        
     def __init__(self, count) -> None:
         self.data = []

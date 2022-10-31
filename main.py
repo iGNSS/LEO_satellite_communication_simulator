@@ -36,7 +36,7 @@ for i in range(len(orbit_list)):
 print("End of Simulation")
 
 data = np.array(data)
-data = np.concatenate((data, probe.get()), axis=1)
+# data = np.concatenate((data, probe.get()), axis=1)
 
 np.savetxt("simulation.csv", data, delimiter=',')
 

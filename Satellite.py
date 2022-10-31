@@ -91,14 +91,17 @@ def Model(t: float, state: List[float]):
     position_cartesian = state[0:3]
     acceleration = accelerationModel(position_cartesian)
 
+    # for output data, not nesscery (line 94 to 108)
     if t % 20 == 0:
         pos_geocentric = geocentric(position_cartesian)
         BNED = magneticModel(position_cartesian, pos_geocentric)
         pos_geocentric[1, 0] = pos_geocentric[1, 0] + pi # TODO: WHY
         Model.BB = propagateVector(BNED, pos_geocentric, quaternion)
 
+    
     measure_B = Magnetometer.Model(Model.BB)
     measure_omega = Gyroscope.Model(angular_speed)
+
     [est_B, est_omega] = Filter.Estimate(measure_B, measure_omega)
     probe(est_omega, 1)
     probe(est_B, 2)

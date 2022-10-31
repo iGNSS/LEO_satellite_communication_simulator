@@ -22,7 +22,7 @@ def velocity(circular_vel: float, orbit_inclination: float) -> float:
 
 altitude: float = 600e3
 position_0 = np.array([[R + altitude, 0, 0]], dtype=float).T
-position_1 = np.array([[R + 700e3, 0, 0]], dtype=float).T
+# position_1 = np.array([[R + 700e3, 0, 0]], dtype=float).T
 
 orbit_inclination: float = 54.24 * (pi/180)
 semi_major: float = semi_major(position_0)

@@ -25,9 +25,8 @@ orbit_list.append(Orbit(position = [[R + 600e3, 0, 0]], orbit_inclination = 54.2
 print("End of Simulation")
 
 data = np.array(orbit_list[0].data)
-print(np.array(orbit_list[0].time))
 # data = np.concatenate((data, probe.get()), axis=1)
 
-np.savetxt("simulation.csv", data, delimiter=',')
+# np.savetxt("simulation.csv", data, delimiter=',')
 
 # Viz.View(data, orbit_list[0].time)

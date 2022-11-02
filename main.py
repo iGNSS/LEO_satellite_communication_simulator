@@ -1,5 +1,5 @@
 import numpy as np
-import Visualization as Viz
+import backup_useless_model.Visualization as Viz
 from Orbit import Orbit
 # from Instrument import probe
 from EarthValues import R
@@ -10,9 +10,6 @@ print("Start of Simulation")
 # list store orbit position etc
 orbit_list = []
 orbit_list.append(Orbit(position = [[R + 600e3, 0, 0]], orbit_inclination = 54.24*(pi/180), attitude = [[1, 0, 0, 0]], omega = [[0.08, -0.02, 0.03]]))
-
-
-# state = np.vstack(([position_0, velocity_0, attitude_0, omega_0])) # , [position_1, velocity_0, attitude_0, omega_0]
 # 3+3+4+3 for position, velocity, attitude, and omega
 # position: x(altitude), y, z (position cartesian)
 # velocity: 0, y-axis , z-axis positive northward coincident with Earth's rotational axis

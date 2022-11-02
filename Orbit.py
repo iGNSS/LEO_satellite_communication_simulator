@@ -26,6 +26,7 @@ class Orbit:
         self.data, self.time = self.Simulate(percent_of_orbits, self.state, timestep = 1)
 
     def velocity(self, circular_vel: float, orbit_inclination: float) -> float:
+        # 0, y, z
         return np.array([[0, circular_vel * np.cos(orbit_inclination), circular_vel * np.sin(orbit_inclination)]], dtype=float).T
 
     def Simulate(self, number_of_orbits, state, timestep=1):

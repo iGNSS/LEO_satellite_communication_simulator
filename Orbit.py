@@ -11,11 +11,11 @@ BB = np.array([[0, 0, 0]], dtype=float).T
 class Orbit:
     def __init__(self, position, orbit_inclination: float, attitude, omega):
         position = np.array(position, dtype=float).T
-        semi_major: float = self.semi_major(position)
-        circular_vel: float = self.circular_vel(semi_major)
+        semi_major: float = np.linalg.norm(position)
+        circular_vel: float = np.sqrt(mu/semi_major)
         attitude = np.array(attitude, dtype=float).T
         omega = np.array(omega, dtype=float).T
-        self.period: float = self.period(semi_major)
+        self.period: float = 2*pi/np.sqrt(mu)*semi_major**(3/2)
 
         # varable for orbit calculation
         # the percent of orbit calculation, 0.1 mean calculate 10% of orbit
@@ -25,23 +25,8 @@ class Orbit:
         # timestep is for the fineness of the orbit calculation
         self.data, self.time = self.Simulate(percent_of_orbits, self.state, timestep = 1)
 
-    def semi_major(self, position: float):
-        return np.linalg.norm(position)
-
-    def circular_vel(self, semi_major: float) -> float:
-        return np.sqrt(mu/semi_major)
-
-    def period(self, semi_major: float) -> float:
-        return 2*pi/np.sqrt(mu)*semi_major**(3/2)
-
-    def vel_y(self, circular_vel: float, orbit_inclination: float) -> float:
-        return circular_vel * np.cos(orbit_inclination)
-
-    def vel_z(self, circular_vel: float, orbit_inclination: float) -> float:
-        return circular_vel * np.sin(orbit_inclination)
-
     def velocity(self, circular_vel: float, orbit_inclination: float) -> float:
-        return np.array([[0, self.vel_y(circular_vel, orbit_inclination), self.vel_z(circular_vel, orbit_inclination)]], dtype=float).T
+        return np.array([[0, circular_vel * np.cos(orbit_inclination), circular_vel * np.sin(orbit_inclination)]], dtype=float).T
 
     def Simulate(self, number_of_orbits, state, timestep=1):
         tfinal: float = self.period * number_of_orbits

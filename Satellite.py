@@ -4,10 +4,10 @@ import numpy as np
 from igrf import igrf as MagneticFieldModel
 import DCM
 from datetime import date
-import Magnetometer
-import Gyroscope
-import Filter
-from Instrument import probe
+# import Magnetometer
+# import Gyroscope
+# import Filter
+from backup_useless_model.Instrument import probe
 from typing import List
 
 m: float = 2.6

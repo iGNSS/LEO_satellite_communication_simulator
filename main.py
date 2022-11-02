@@ -1,7 +1,7 @@
 import numpy as np
 import Visualization as Viz
 from Orbit import Orbit
-from Instrument import probe
+# from Instrument import probe
 from EarthValues import R
 from math import pi
 

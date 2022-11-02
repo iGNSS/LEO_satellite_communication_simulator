@@ -15,28 +15,29 @@ class Orbit:
         circular_vel: float = np.sqrt(mu/semi_major)
         attitude = np.array(attitude, dtype=float).T
         omega = np.array(omega, dtype=float).T
+        # the unit of period is seconds
         self.period: float = 2*pi/np.sqrt(mu)*semi_major**(3/2)
 
         # varable for orbit calculation
-        # the percent of orbit calculation, 0.1 mean calculate 10% of orbit
-        percent_of_orbits: float = 0.1
+        # the percent of orbit calculation, 0.01 mean calculate 1% of orbit
+        percent_of_orbits: float = 0.01
 
         self.state = np.vstack(([position, self.velocity(circular_vel, orbit_inclination), attitude, omega]))
-        # timestep is for the fineness of the orbit calculation
-        self.data, self.time = self.Simulate(percent_of_orbits, self.state, timestep = 1)
+        # timestep is for the fineness of the orbit calculation, 0.001 mean calculate for per 10 Millisecond
+        self.data, self.time = self.Simulate(percent_of_orbits, self.state, timestep = 0.01)
 
     def velocity(self, circular_vel: float, orbit_inclination: float) -> float:
         # 0, y, z
         return np.array([[0, circular_vel * np.cos(orbit_inclination), circular_vel * np.sin(orbit_inclination)]], dtype=float).T
 
-    def Simulate(self, number_of_orbits, state, timestep=1):
+    def Simulate(self, number_of_orbits, state, timestep=0.01):
         tfinal: float = self.period * number_of_orbits
         time = np.arange(0.0, tfinal, timestep, dtype=float)
 
         view_state = []
         for i in range(len(time)):
             # print the progess %
-            print('Progress: \033[K' + ('%.2f' %  i/len(time)*100.0) + '%\r')
+            print('Progress: \033' + ('%.2f' %  float(i/len(time)*100.0)) + '%')
 
             state = RK4(Model, state, time[i], timestep)
             view_state.append(state[:, 0])

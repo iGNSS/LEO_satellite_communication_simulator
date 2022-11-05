@@ -8,6 +8,10 @@ from Satellite import Model
 
 BB = np.array([[0, 0, 0]], dtype=float).T
 
+def velocity(circular_vel: float, orbit_inclination: float) -> float:
+    # 0, y, z
+    return np.array([[0, circular_vel * np.cos(orbit_inclination), circular_vel * np.sin(orbit_inclination)]], dtype=float).T
+
 class Orbit:
     def __init__(self, position, orbit_inclination: float, attitude, omega):
         position = np.array(position, dtype=float).T
@@ -22,13 +26,9 @@ class Orbit:
         # the percent of orbit calculation, 0.01 mean calculate 1% of orbit
         percent_of_orbits: float = 0.01
 
-        self.state = np.vstack(([position, self.velocity(circular_vel, orbit_inclination), attitude, omega]))
+        self.state = np.vstack(([position, velocity(circular_vel, orbit_inclination), attitude, omega]))
         # timestep is for the fineness of the orbit calculation, 0.001 mean calculate for per 10 Millisecond
         self.data, self.time = self.Simulate(percent_of_orbits, self.state, timestep = 0.01)
-
-    def velocity(self, circular_vel: float, orbit_inclination: float) -> float:
-        # 0, y, z
-        return np.array([[0, circular_vel * np.cos(orbit_inclination), circular_vel * np.sin(orbit_inclination)]], dtype=float).T
 
     def Simulate(self, number_of_orbits, state, timestep=0.01):
         tfinal: float = self.period * number_of_orbits
@@ -41,4 +41,6 @@ class Orbit:
 
             state = RK4(Model, state, time[i], timestep)
             view_state.append(state[:, 0])
-        return view_state, time
+
+            self.data = view_state
+            self.time = time

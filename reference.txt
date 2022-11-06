@@ -1,0 +1,3 @@
+data transmitted reference https://www.diva-portal.org/smash/get/diva2:1082511/FULLTEXT01.pdf
+radar https://www.sciencedirect.com/topics/earth-and-planetary-sciences/radar-range 100-3500/ 500km
+

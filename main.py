@@ -21,12 +21,11 @@ orbit_list.append(Orbit(position = [[R + 600e3, 0, 0]], orbit_inclination = 54.2
 # status is the function to print progress %
 # output of data is 13 value state + delta_state (to-do: understand what is going on)
 # data, time = Simulate(number_of_orbits, state, status=Viz.status, timestep=5)   # timestep is for the fineness of the orbit calculation
-
 print("End of Simulation")
 
 # data = np.array(orbit_list[0].data)
 # data = np.concatenate((data, probe.get()), axis=1)
 
-# np.savetxt("simulation.csv", data, delimiter=',')
+# np.savetxt("simulation.csv", orbit_list[0].data, delimiter=',')
 
 # Viz.View(data, orbit_list[0].time)

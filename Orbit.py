@@ -28,7 +28,7 @@ class Orbit:
         self.period: float = 2*pi/np.sqrt(mu)*semi_major**(3/2)
 
         self.state = np.vstack(([position, velocity(circular_vel, orbit_inclination), attitude, omega]))
-        self.data, self.time = self.Simulate(self.state)
+        self.Simulate(self.state)
 
     def Simulate(self, state):
         tfinal: float = self.period * percent_of_orbits
@@ -44,3 +44,7 @@ class Orbit:
 
             self.data = view_state
             self.time = time
+
+    def data_in_time(self, time: float):
+        i = int(time/timestep)
+        return self.data[i]

@@ -7,6 +7,11 @@ from Integrator import RK4
 from Satellite import Model
 
 BB = np.array([[0, 0, 0]], dtype=float).T
+# varable for orbit calculation
+# the percent of orbit calculation, 0.01 mean calculate 1% of orbit
+# timestep is for the fineness of the orbit calculation, 0.001 mean calculate for per 10 Millisecond
+timestep: float = 0.01
+percent_of_orbits: float = 0.01
 
 def velocity(circular_vel: float, orbit_inclination: float) -> float:
     # 0, y, z
@@ -22,16 +27,11 @@ class Orbit:
         # the unit of period is seconds
         self.period: float = 2*pi/np.sqrt(mu)*semi_major**(3/2)
 
-        # varable for orbit calculation
-        # the percent of orbit calculation, 0.01 mean calculate 1% of orbit
-        percent_of_orbits: float = 0.01
-
         self.state = np.vstack(([position, velocity(circular_vel, orbit_inclination), attitude, omega]))
-        # timestep is for the fineness of the orbit calculation, 0.001 mean calculate for per 10 Millisecond
-        self.data, self.time = self.Simulate(percent_of_orbits, self.state, timestep = 0.01)
+        self.data, self.time = self.Simulate(self.state)
 
-    def Simulate(self, number_of_orbits, state, timestep=0.01):
-        tfinal: float = self.period * number_of_orbits
+    def Simulate(self, state):
+        tfinal: float = self.period * percent_of_orbits
         time = np.arange(0.0, tfinal, timestep, dtype=float)
 
         view_state = []

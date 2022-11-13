@@ -24,7 +24,7 @@ orbit_list.append(Orbit(position = [[R + 600e3, 0, 0]], orbit_inclination = 54.2
 
 print("End of Simulation")
 
-data = np.array(orbit_list[0].data)
+# data = np.array(orbit_list[0].data)
 # data = np.concatenate((data, probe.get()), axis=1)
 
 # np.savetxt("simulation.csv", data, delimiter=',')
